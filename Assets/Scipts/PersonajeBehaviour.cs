@@ -38,9 +38,10 @@ public class PersonajeBehaviour : MonoBehaviour
     {
         vInput = Input.GetAxis("Vertical") * personajeSpeed;
         hInput = Input.GetAxis("Horizontal") * rotateSpeed;
-
+        /*
         this.transform.Translate(Vector3.forward * vInput * Time.deltaTime);
         this.transform.Rotate(Vector3.up * hInput * Time.deltaTime);
+        */
 
         isShooting |= Input.GetKeyDown(KeyCode.Q);
 
@@ -78,5 +79,4 @@ public class PersonajeBehaviour : MonoBehaviour
         }
         isShooting = false; 
     }
-    
 }
