@@ -30,27 +30,29 @@ public class PersonajeBehaviour : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        //Declaramos la variables relacionadolas con los componentes del editor
+        rb = GetComponent<Rigidbody>(); 
         col = rb.GetComponent<CapsuleCollider>();
     }
  
     void Update()
     {
-        vInput = Input.GetAxis("Vertical") * personajeSpeed;
-        hInput = Input.GetAxis("Horizontal") * rotateSpeed;
-        /*
+        vInput = Input.GetAxis("Vertical") * personajeSpeed; //Indicamos que utilice el sitema de input propio de Unity haciendo que nos movamos hacia delante y hacia atras con "w" y "s"
+        hInput = Input.GetAxis("Horizontal") * rotateSpeed; //Indicamos que utilice el sitema de input propio de Unity haciendo que nos movamos hacia los lados con "a" y "d"
+
+        /* Hacemos que con las teclas horizontales rotemos en vez de movernos
+         * 
         this.transform.Translate(Vector3.forward * vInput * Time.deltaTime);
         this.transform.Rotate(Vector3.up * hInput * Time.deltaTime);
         */
 
-        isShooting |= Input.GetKeyDown(KeyCode.Q);
+        isShooting |= Input.GetKeyDown(KeyCode.Q);//Utilizando la tecla "Q" podremos disparar
+        
+        isJumping |= Input.GetKeyDown(KeyCode.Space); //Utilizando la barra espaciadora podremos saltar
 
-        
-        isJumping |= Input.GetKeyDown(KeyCode.Space);
-        
     }
 
-    private bool IsGrounded() //No funciona Preguntar
+    private bool IsGrounded() //Creamos un metodo para detectar la colision del personaje con el suelo para saber si esta tocando el suelo
     {
         Vector3 capsuleBottom = new Vector3(col.bounds.center.x, col.bounds.min.y, col.bounds.max.z);
 
@@ -59,19 +61,23 @@ public class PersonajeBehaviour : MonoBehaviour
         return grounded;
     }
 
-    private void FixedUpdate() //Preguntar a Asier que hace
+    private void FixedUpdate()
     {
+        //Hacemos que con las teclas horizontales rotemos en vez de movernos
+
         Vector3 rotation = Vector3.up * hInput;
         Quaternion angelRot = Quaternion.Euler(rotation * Time.deltaTime);
         rb.MovePosition(this.transform.position + this.transform.forward * vInput * Time.fixedDeltaTime);
         rb.MoveRotation(rb.rotation * angelRot);
+
+        //Creamos una condicion para el que saltes si estas tocando el suelo y estas pulsando la barra espaciadora
         if (isJumping && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
         isJumping = false;
 
-        if (isShooting)
+        if (isShooting)//Creamos un sistema de isntancia para generar balas a traves de la posicion del personaje
         {
             GameObject newBala = Instantiate(Bala, this.transform.position + new Vector3(0, 0, 1), this.transform.rotation);
             Rigidbody BalaRB = newBala.GetComponent<Rigidbody>();
