@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5310104
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1254,8 +1254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85635a28e57cd1e4680d7670d94c0f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winButton: {fileID: 5310107}
   MaxItems: 4
+  winButton: {fileID: 5310107}
   healthText: {fileID: 144204852}
   itemText: {fileID: 406635488}
   progressText: {fileID: 2070919694}
