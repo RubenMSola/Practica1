@@ -844,7 +844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &604165309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2495,6 +2495,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6534546824626202635, guid: 0c39c5e15004a2e488cdbe26ec54e529, type: 3}
+      propertyPath: PatrolRoute
+      value: 
+      objectReference: {fileID: 444193630}
     - target: {fileID: 6534546824626202644, guid: 0c39c5e15004a2e488cdbe26ec54e529, type: 3}
       propertyPath: m_Name
       value: Enemigo
