@@ -11,15 +11,32 @@ public class Enemigo : MonoBehaviour
     private int _locationIndex = 0;
     private NavMeshAgent _agent;
 
+    public Transform Player;
+
+    private int _lives = 3;
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
 
         InitializePatrolRoute();
         MoveToNextPatrolLocation();
+        Player = GameObject.Find("Personaje").transform;
+    }
+    public int EnemyLives
+    {
+        get { return _lives; }
+        private set
+        {
+            _lives = value;
+            if (_lives <= 0)
+            {
+                Destroy(this.gameObject);
+                print("Enemy Down");
+            }
+        }
     }
 
-    void Update()
+        void Update()
     {
         if (_agent.remainingDistance < 0.2f && !_agent.pathPending)
         {
@@ -45,6 +62,7 @@ public class Enemigo : MonoBehaviour
     {
         if(other.name == "Personaje")
         {
+            _agent.destination = Player.position;
             print("Personaje Detectado");
         }
     }
@@ -54,6 +72,14 @@ public class Enemigo : MonoBehaviour
         if (other.name == "Personaje")
         {
             print("Personaje Salio");
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "Bala(Clone)")
+        {
+            EnemyLives -= 1;
+            print("Muerto");
         }
     }
 }

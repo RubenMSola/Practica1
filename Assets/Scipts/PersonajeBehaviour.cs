@@ -28,11 +28,14 @@ public class PersonajeBehaviour : MonoBehaviour
     public float BalaSpeed = 100f;
     private bool isShooting;
 
+    private GameBehaviour _gameManager;
+
     void Start()
     {
         //Declaramos la variables relacionadolas con los componentes del editor
         rb = GetComponent<Rigidbody>(); 
         col = rb.GetComponent<CapsuleCollider>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameBehaviour>();
     }
  
     void Update()
@@ -84,5 +87,12 @@ public class PersonajeBehaviour : MonoBehaviour
             BalaRB.velocity = this.transform.forward * BalaSpeed;
         }
         isShooting = false; 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Enemigo")
+        {
+            _gameManager.HP -= 10;
+        }
     }
 }
